@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Corieosity — Be the answer, on Google and in AI</title>
+<meta name="description" content="Corieosity builds intelligent, immersive websites that get cited by AI engines, rank on Google, and turn the visitors they earn into revenue." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080d0b; --bg2:#0b1512; --panel:rgba(255,255,255,.035);
+    --line:rgba(140,180,165,.14);
+    --teal:#43b892; --teal-bright:#5fe0b3; --teal-deep:#1f6d57;
+    --gold:#ffc736; --gold-soft:#ffd766;
+    --ink:#eaf3ef; --mut:#93a89f; --mut2:#6f857c;
+    --radius:18px; --max:1180px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;line-height:1.08;letter-spacing:-.02em;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-bright);font-weight:600}
+  .muted{color:var(--mut)}
+  .accent{color:var(--gold)}
+  .tealtxt{color:var(--teal-bright)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:.55em;padding:.9em 1.4em;border-radius:100px;font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),background .3s,box-shadow .3s}
+  .btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-deep));color:#04110c;box-shadow:0 10px 30px -12px rgba(67,184,146,.7)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(67,184,146,.9)}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .btn .arw{transition:transform .3s var(--ease)}
+  .btn:hover .arw{transform:translate(3px,-3px)}
+  a:focus-visible,button:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
+  .ico svg{width:24px;height:24px}
+  .micon{color:var(--teal-bright);display:flex;margin-bottom:2px}
+  .micon svg{width:26px;height:26px}
+
+  /* nav */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+  header.nav.scrolled{background:rgba(8,13,11,.72);backdrop-filter:blur(14px);border-color:var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:700;font-size:1.15rem;letter-spacing:-.02em}
+  .brand svg{width:34px;height:34px;flex:none}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:.92rem;color:var(--mut);transition:color .25s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:.9rem}
+  @media(max-width:840px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding-top:72px;overflow:hidden}
+  #gl{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-glow{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(60% 50% at 50% 42%,rgba(67,184,146,.10),transparent 70%),
+               radial-gradient(40% 40% at 78% 20%,rgba(255,199,54,.07),transparent 70%);
+    mix-blend-mode:screen}
+  .hero-vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 20%,transparent 40%,var(--bg) 100%)}
+  .hero-inner{position:relative;z-index:2;width:100%}
+  .hero h1{font-size:clamp(2.6rem,6.4vw,5rem);max-width:15ch;margin:.2em 0 .1em}
+  .hero h1 .accent{background:linear-gradient(120deg,var(--gold),var(--gold-soft));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.lead{font-size:clamp(1.05rem,1.7vw,1.28rem);color:var(--mut);max-width:56ch;margin:1.1em 0 2em}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;color:var(--mut2);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-hint span.dot{width:5px;height:5px;border-radius:50%;background:var(--teal-bright);animation:fall 1.8s var(--ease) infinite}
+  @keyframes fall{0%{transform:translateY(-6px);opacity:0}30%{opacity:1}100%{transform:translateY(10px);opacity:0}}
+
+  /* sections */
+  section{position:relative}
+  .band{padding:96px 0}
+  .band-tight{padding:64px 0}
+  .sec-head{max-width:60ch;margin-bottom:48px}
+  .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);margin:.35em 0 .3em}
+  .sec-head p{color:var(--mut);font-size:1.06rem}
+
+  /* stat bar */
+  .statbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(67,184,146,.04),transparent)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .stat .n{font-family:'Space Grotesk';font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;color:var(--ink)}
+  .stat .n em{font-style:normal;color:var(--teal-bright)}
+  .stat p{font-size:.92rem;color:var(--mut);margin:.3em 0 0}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr);gap:30px 20px}}
+
+  /* built on strip */
+  .builton{display:flex;flex-wrap:wrap;align-items:center;gap:14px 30px;justify-content:center;text-align:center}
+  .builton .lbl{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mut2)}
+  .chip{font-size:.9rem;color:var(--mut);border:1px solid var(--line);padding:.4em 1em;border-radius:100px;transition:.25s}
+  .chip:hover{color:var(--ink);border-color:var(--teal)}
+
+  /* cards grid */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:900px){.grid3{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:transform .4s var(--ease),border-color .4s,background .4s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-5px);border-color:rgba(67,184,146,.4);background:rgba(67,184,146,.05)}
+  .card .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(67,184,146,.12);color:var(--teal-bright);margin-bottom:18px}
+  .card h3{font-size:1.28rem;margin:.1em 0 .5em}
+  .card p{color:var(--mut);font-size:.97rem}
+  .card .tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .card ul{list-style:none;padding:0;margin:16px 0 0}
+  .card li{font-size:.9rem;color:var(--mut);padding-left:20px;position:relative;margin:.35em 0}
+  .card li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+
+  /* answer readiness layers */
+  .layers{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center}
+  @media(max-width:900px){.layers{grid-template-columns:1fr;gap:34px}}
+  .layer{border-left:2px solid var(--line);padding:6px 0 26px 26px;position:relative;transition:border-color .4s}
+  .layer:last-child{padding-bottom:0}
+  .layer::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--teal)}
+  .layer:hover{border-color:var(--teal)}
+  .layer .step{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-bright);font-weight:600}
+  .layer h3{font-size:1.35rem;margin:.25em 0 .35em}
+  .layer p{color:var(--mut);font-size:.96rem;margin:0}
+  .layer .out{color:var(--gold-soft);font-size:.86rem;margin-top:.6em;display:block}
+  .layers .visual{aspect-ratio:1;border-radius:var(--radius);border:1px solid var(--line);background:
+     radial-gradient(circle at 50% 42%,rgba(255,199,54,.10),transparent 45%),
+     radial-gradient(circle at 50% 60%,rgba(67,184,146,.10),transparent 55%),var(--bg2);
+     display:grid;place-items:center;position:relative;overflow:hidden}
+  .orbit{position:absolute;border:1px solid var(--line);border-radius:50%}
+  .orbit.o1{inset:16%}.orbit.o2{inset:30%}.orbit.o3{inset:44%}
+  .core-owl{width:96px;height:96px;position:relative;z-index:2;filter:drop-shadow(0 0 24px rgba(67,184,146,.5))}
+  .sat{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+
+  /* why webgl split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  @media(max-width:900px){.split{grid-template-columns:1fr}}
+  .metricbox{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .metricbox .m .n{font-family:'Space Grotesk';font-size:1.9rem;font-weight:700;color:var(--teal-bright)}
+  .metricbox .m p{font-size:.85rem;color:var(--mut);margin:.2em 0 0}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+  @media(max-width:820px){.steps{grid-template-columns:repeat(2,1fr)}}
+  .pstep{border-top:1px solid var(--line);padding-top:20px;counter-increment:s}
+  .pstep::before{content:"0" counter(s);font-family:'Space Grotesk';font-weight:700;font-size:1.4rem;color:var(--teal-deep)}
+  .pstep h3{font-size:1.15rem;margin:.4em 0 .3em}
+  .pstep p{font-size:.9rem;color:var(--mut);margin:0}
+
+  /* FAQ */
+  .faq{max-width:800px;margin:0 auto}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa button{width:100%;background:none;border:0;color:var(--ink);font-family:'Space Grotesk';font-size:1.12rem;font-weight:500;text-align:left;padding:24px 0;display:flex;justify-content:space-between;gap:20px;cursor:pointer;align-items:center}
+  .qa .plus{color:var(--teal-bright);flex:none;transition:transform .3s}
+  .qa.open .plus{transform:rotate(45deg)}
+  .qa .ans{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);color:var(--mut);font-size:.98rem}
+  .qa .ans p{margin:0 0 22px}
+
+  /* final cta */
+  .final{text-align:center;background:
+     radial-gradient(60% 100% at 50% 0%,rgba(67,184,146,.12),transparent 70%);
+     border:1px solid var(--line);border-radius:26px;padding:70px 30px;position:relative;overflow:hidden}
+  .final h2{font-size:clamp(2rem,4.2vw,3.2rem);max-width:18ch;margin:0 auto .4em}
+  .final p{color:var(--mut);max-width:50ch;margin:0 auto 2em}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .foot .tag{color:var(--mut);max-width:34ch;font-size:.94rem;margin:.8em 0 0}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links h4{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut2);margin:0 0 14px}
+  .foot-links a{display:block;color:var(--mut);font-size:.92rem;margin:.5em 0;transition:.2s}
+  .foot-links a:hover{color:var(--ink)}
+  .foot-bottom{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--mut2);font-size:.82rem}
+  .ask{color:var(--teal-bright)}
+
+  /* reveal anim */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .demo-badge{position:fixed;bottom:16px;right:16px;z-index:60;background:rgba(11,21,18,.9);border:1px solid var(--line);backdrop-filter:blur(8px);color:var(--mut);font-size:.74rem;padding:.5em .9em;border-radius:100px}
+  .demo-badge b{color:var(--gold)}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.scroll-hint{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== owl mark (reusable) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="owl">
+    <path d="M32 6 C18 6 8 16 8 32 C8 48 18 58 32 58 C46 58 56 48 56 32 C56 16 46 6 32 6Z" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".55"/>
+    <path d="M14 12 L23 22 M50 12 L41 22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+    <circle cx="23" cy="30" r="9" fill="none" stroke="#ffc736" stroke-width="2.6"/>
+    <circle cx="41" cy="30" r="9" fill="none" stroke="#ffc736" stroke-width="2.6"/>
+    <circle cx="23" cy="30" r="3.4" fill="#ffc736"/>
+    <circle cx="41" cy="30" r="3.4" fill="#ffc736"/>
+    <path d="M32 34 L28 40 L32 42 L36 40 Z" fill="#ffc736"/>
+  </g>
+  <g id="ic-target" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+  </g>
+  <g id="ic-layers" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>
+  </g>
+  <g id="ic-cpu" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>
+  </g>
+  <g id="ic-trendup" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/>
+  </g>
+  <g id="ic-trenddown" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 7l6 6 4-4 8 8"/><path d="M17 17h4v-4"/>
+  </g>
+  <g id="ic-eye" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+  </g>
+  <g id="ic-zap" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/>
+  </g>
+</defs></svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 64 64" style="color:var(--teal-bright)"><use href="#owl"/></svg>
+      Corieosity
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#system">AI Search</a>
+      <a href="#experience">Experiences</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary nav-cta">Answer Readiness Score</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <canvas id="gl"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-vign"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-cta-wrap reveal in">
+      <span class="eyebrow">AI-Search Growth Agency</span>
+      <h1>Be the answer — <br>on Google and in <span class="accent">AI</span>.</h1>
+      <p class="lead">Corieosity builds intelligent, immersive websites that get <span class="tealtxt">cited by AI engines</span>, rank on Google, and turn the visitors they earn into revenue.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get your free Answer Readiness score <span class="arw">↗</span></a>
+        <a href="#system" class="btn btn-ghost">See how we build</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="dot"></span>Scroll</div>
+</section>
+
+<!-- ===== STAT BAR ===== -->
+<section class="statbar band-tight">
+  <div class="wrap stats">
+    <div class="stat reveal"><div class="n"><em>~60%</em></div><p>of searches now end without a click. We build for the answer, not the leftover clicks.</p></div>
+    <div class="stat reveal"><div class="n">3<em>-layer</em></div><p>Answer Readiness System: Findable → Extractable → Citable.</p></div>
+    <div class="stat reveal"><div class="n"><em>&lt;1s</em></div><p>target load — rich WebGL that still keeps Core Web Vitals green.</p></div>
+    <div class="stat reveal"><div class="n">100<em>%</em></div><p>server-rendered content, so AI crawlers can actually read you.</p></div>
+  </div>
+</section>
+
+<!-- ===== BUILT ON ===== -->
+<section class="band-tight">
+  <div class="wrap builton reveal">
+    <span class="lbl">Built on</span>
+    <span class="chip">Next.js 15</span><span class="chip">React 19</span><span class="chip">Three.js</span><span class="chip">TypeScript</span>
+    <span class="lbl" style="margin-left:8px">Optimized for</span>
+    <span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">Perplexity</span><span class="chip">Google AI Overviews</span>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="band" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Services</span>
+      <h2>Two problems, one system.</h2>
+      <p>Getting found by AI is worthless if the site doesn't convert. A beautiful site is worthless if AI never surfaces it. We do both — that's the Answer-to-Action loop.</p>
+    </div>
+    <div class="grid3">
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-target"/></svg></div>
+        <span class="tag">The moat</span>
+        <h3>AI-Search Optimization</h3>
+        <p>SEO + AEO + GEO as one method. We engineer you into the answer AI engines return — and the featured snippet Google shows.</p>
+        <ul><li>Answer Readiness audit</li><li>Entity &amp; schema architecture</li><li>Citation-ready content</li></ul>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-layers"/></svg></div>
+        <span class="tag">The proof</span>
+        <h3>Immersive Web Experiences</h3>
+        <p>WebGL and motion engineered to hold attention and drive action — measured in dwell, scroll depth and conversion, not applause.</p>
+        <ul><li>React Three Fiber / WebGL</li><li>Scroll-driven storytelling</li><li>Performance-guarded 3D</li><li>ADA / WCAG accessible by default</li></ul>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-cpu"/></svg></div>
+        <span class="tag">The engine</span>
+        <h3>AI-Powered Websites</h3>
+        <p>Next.js builds with real AI where it earns its keep — accurate assistants, smart search, and content structured for machines.</p>
+        <ul><li>Next.js 15 architecture</li><li>RAG-backed site assistants</li><li>Client-managed CMS</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ANSWER READINESS SYSTEM ===== -->
+<section class="band" id="system" style="background:linear-gradient(180deg,transparent,rgba(67,184,146,.03),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Answer Readiness System</span>
+      <h2>Your next customer is asking an AI about you right now.</h2>
+      <p>Three layers decide whether you show up in that answer. Most agencies stop at the first one.</p>
+    </div>
+    <div class="layers">
+      <div>
+        <div class="layer reveal">
+          <span class="step">Layer 01 — SEO</span>
+          <h3>Findable</h3>
+          <p>Crawlable, server-rendered HTML, green Core Web Vitals, clean structure and topical authority.</p>
+          <span class="out">→ If Google can't read you cleanly, nothing downstream works.</span>
+        </div>
+        <div class="layer reveal">
+          <span class="step">Layer 02 — AEO</span>
+          <h3>Extractable</h3>
+          <p>Question-led structure, concise answer blocks and schema, so engines can lift your answer into snippets and AI Overviews.</p>
+          <span class="out">→ You become the box at the top, not link #7.</span>
+        </div>
+        <div class="layer reveal">
+          <span class="step">Layer 03 — GEO</span>
+          <h3>Citable</h3>
+          <p>Original stats, cited sources, consistent entity signals and presence where AI retrieval trusts — so LLMs name you.</p>
+          <span class="out">→ You get cited inside ChatGPT, Perplexity and Gemini answers.</span>
+        </div>
+      </div>
+      <div class="visual reveal" aria-hidden="true">
+        <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+        <svg viewBox="0 0 64 64" class="core-owl" style="color:var(--teal-bright)"><use href="#owl"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY WEBGL ===== -->
+<section class="band" id="experience">
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">Why immersive</span>
+      <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);margin:.3em 0 .5em">Attention is the conversion.</h2>
+      <p class="muted" style="font-size:1.05rem">Immersive isn't decoration — it's engineered attention. Every interaction earns another second of focus, and seconds are what turn a visitor into a lead. The trick nobody else pulls off: rich for humans, <span class="tealtxt">server-rendered and machine-readable for engines.</span></p>
+    </div>
+    <div class="metricbox reveal">
+      <div class="m"><div class="micon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-trendup"/></svg></div><p>Longer dwell time — the signal engines and buyers both reward</p></div>
+      <div class="m"><div class="micon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-trenddown"/></svg></div><p>Lower bounce through motion that guides, not distracts</p></div>
+      <div class="m"><div class="micon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-eye"/></svg></div><p>Memorable brand perception vs template sameness</p></div>
+      <div class="m"><div class="micon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-zap"/></svg></div><p>Sub-second loads despite heavy 3D</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="band" id="process" style="background:linear-gradient(180deg,transparent,rgba(255,199,54,.03),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Process</span>
+      <h2>How we get you into the answer.</h2>
+    </div>
+    <div class="steps">
+      <div class="pstep reveal"><h3>Audit</h3><p>We measure how humans and AI engines currently see you — the Answer Readiness score.</p></div>
+      <div class="pstep reveal"><h3>Architect</h3><p>Information, entity and schema architecture designed for machine-readability from the first wireframe.</p></div>
+      <div class="pstep reveal"><h3>Build</h3><p>Next.js 15 + WebGL, fast and immersive, built with our engineering partners.</p></div>
+      <div class="pstep reveal"><h3>Prove</h3><p>We report rankings, AI citations, CWV and conversions — outcomes, not deliverables.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="eyebrow">Questions</span>
+      <h2>The things everyone asks first.</h2>
+    </div>
+    <div class="faq">
+      <div class="qa reveal"><button>What are AEO and GEO — and why should I care? <span class="plus">+</span></button><div class="ans"><p>AEO (Answer Engine Optimization) makes your content the answer Google shows in snippets and AI Overviews. GEO (Generative Engine Optimization) makes AI tools like ChatGPT and Perplexity cite you by name. As searches increasingly end inside an AI answer, being findable isn't enough — you have to be <em>citable</em>.</p></div></div>
+      <div class="qa reveal"><button>Will an immersive WebGL site hurt my SEO? <span class="plus">+</span></button><div class="ans"><p>It does when it's built wrong — most studios ship JavaScript that crawlers and AI bots can't read. We build the opposite way: the experience is rich for humans, but the content is server-rendered and machine-readable, with Core Web Vitals kept in the green. Beauty and rankings aren't a trade-off when it's engineered correctly.</p></div></div>
+      <div class="qa reveal"><button>How are you different from a normal web agency? <span class="plus">+</span></button><div class="ans"><p>Normal agencies bolt SEO on after design. We start from how machines read you and design the experience around it — then report on business outcomes, not deliverables. You get one team owning both visibility and conversion: the Answer-to-Action loop.</p></div></div>
+      <div class="qa reveal"><button>Do you have case studies? <span class="plus">+</span></button><div class="ans"><p>We're a newly repositioned agency, so instead of borrowed logos we'll show you the honest thing: our own site, engineered to rank and get cited, plus a live proof build. Ask ChatGPT who does AI-search optimization and see if we come up — that's the real test.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="band" id="contact">
+  <div class="wrap">
+    <div class="final reveal">
+      <span class="eyebrow">Start here</span>
+      <h2>Find out if AI can see you.</h2>
+      <p>Get a free Answer Readiness score for your site — the three-layer breakdown of where you're visible, where you're invisible, and what it's costing you.</p>
+      <a href="#" class="btn btn-primary" style="font-size:1.02rem">Get your free Answer Readiness score <span class="arw">↗</span></a>
+      <div style="margin-top:18px"><a href="#" class="btn btn-ghost">Enterprise? Talk to sales</a></div>
+      <p style="margin:20px auto 0;color:var(--mut2);font-size:.82rem">Available in U.S. business hours · ET / PT · Billed in USD</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><svg viewBox="0 0 64 64" style="color:var(--teal-bright)"><use href="#owl"/></svg> Corieosity</a>
+        <p class="tag">The agency that makes brands the answer — seen by machines, chosen by humans. Serving U.S. startups, SaaS &amp; enterprise.</p>
+      </div>
+      <div class="foot-links">
+        <div><h4>Services</h4><a href="#">AI-Search Optimization</a><a href="#">Immersive Experiences</a><a href="#">AI-Powered Websites</a><a href="#">Next.js Development</a></div>
+        <div><h4>Agency</h4><a href="#">Work</a><a href="#">About</a><a href="#">Insights</a><a href="#">Contact</a></div>
+        <div><h4>Contact</h4><a href="mailto:hello@corieosity.com">hello@corieosity.com</a><a href="tel:+14155550100">+1 (415) 555‑0100</a><span style="display:block;color:var(--mut2);font-size:.86rem;margin:.6em 0 0">Available U.S. hours · ET / PT</span></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Corieosity. Be the answer.</span>
+      <span><a href="#" style="color:var(--mut2)">Privacy (CCPA)</a> · <a href="#" style="color:var(--mut2)">Terms</a> · Billed in USD</span>
+      <span class="ask">Don't take our word for it — ask ChatGPT about AEO agencies.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="demo-badge">Visual demo · <b>not</b> the production Next.js build</div>
+
+<!-- ===== reveal + nav + faq ===== -->
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+  document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+    const qa=b.parentElement,ans=qa.querySelector('.ans'),open=qa.classList.toggle('open');
+    ans.style.maxHeight=open?ans.scrollHeight+'px':0;
+  }));
+</script>
+
+<!-- ===== WebGL hero ===== -->
+<script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }</script>
+<script type="module">
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try{
+    const THREE = await import('three');
+    const canvas=document.getElementById('gl');
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(60,1,.1,100); cam.position.z=15;
+
+    // round soft sprite
+    const c=document.createElement('canvas');c.width=c.height=64;
+    const cx=c.getContext('2d');const g=cx.createRadialGradient(32,32,0,32,32,32);
+    g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.3,'rgba(255,255,255,.7)');g.addColorStop(1,'rgba(255,255,255,0)');
+    cx.fillStyle=g;cx.fillRect(0,0,64,64);
+    const sprite=new THREE.CanvasTexture(c);
+
+    // fibonacci sphere of points, teal->gold by height
+    const N=(innerWidth<760?1500:3200), pos=new Float32Array(N*3), col=new Float32Array(N*3);
+    const teal=new THREE.Color('#43b892'), gold=new THREE.Color('#ffc736'), deep=new THREE.Color('#1f6d57');
+    const R=8.2;
+    for(let i=0;i<N;i++){
+      const t=i/N, inc=Math.acos(1-2*t), az=Math.PI*(1+Math.sqrt(5))*i;
+      const x=Math.sin(inc)*Math.cos(az), y=Math.cos(inc), z=Math.sin(inc)*Math.sin(az);
+      const r=R*(.86+Math.random()*.14);
+      pos[i*3]=x*r; pos[i*3+1]=y*r; pos[i*3+2]=z*r;
+      const cc=deep.clone().lerp(teal,(y+1)/2); if(Math.random()>.9) cc.lerp(gold,.7);
+      col[i*3]=cc.r;col[i*3+1]=cc.g;col[i*3+2]=cc.b;
+    }
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:.16,map:sprite,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+    const pts=new THREE.Points(geo,mat); scene.add(pts);
+
+    // inner glow core
+    const core=new THREE.Points(geo.clone(),new THREE.PointsMaterial({size:.05,color:0xeaf3ef,transparent:true,opacity:.25,depthWrite:false}));
+    core.scale.setScalar(.6); scene.add(core);
+
+    let mx=0,my=0;
+    addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5)},{passive:true});
+    function size(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+    size(); addEventListener('resize',size);
+
+    let t=0;
+    function loop(){
+      t+=.0016;
+      pts.rotation.y=t; pts.rotation.x=Math.sin(t*.6)*.12;
+      core.rotation.y=-t*1.2;
+      const tx=mx*.5, ty=-my*.4;
+      pts.rotation.y+=(tx-0)*0; // base
+      cam.position.x+=((mx*4)-cam.position.x)*.04;
+      cam.position.y+=((-my*3)-cam.position.y)*.04;
+      cam.lookAt(0,0,0);
+      renderer.render(scene,cam);
+      if(!reduce) requestAnimationFrame(loop);
+    }
+    loop();
+    if(reduce) renderer.render(scene,cam);
+  }catch(err){
+    // graceful fallback: CSS gradient already covers the hero
+    console.warn('WebGL hero disabled:',err);
+  }
+</script>
+</body>
+</html>
