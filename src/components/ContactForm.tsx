@@ -17,7 +17,7 @@ export default function ContactForm() {
     }
     setStatus("sending");
     try {
-      const res = await fetch("/contact.php", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
