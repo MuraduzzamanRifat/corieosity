@@ -24,6 +24,7 @@ export const nav: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
   { label: "Case Studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -218,4 +219,34 @@ export const values = [
   { title: "Curious", body: "The name is a promise. We're on the new frontier before it's obvious." },
   { title: "Precise", body: "Evidence-led. Numbers, not adjectives." },
   { title: "Quietly confident", body: "Premium brands don't shout. We show proof and let it land." },
+];
+
+// The honest studio model — capabilities, not fabricated headcount.
+export const capabilities = [
+  { role: "Strategy & AI-Search", body: "Positioning, entity architecture, and the Answer Readiness System. The senior core of every engagement." },
+  { role: "Engineering", body: "A vetted bench of Next.js / React Three Fiber engineers, assembled per project — capability without carried overhead." },
+  { role: "Design & Motion", body: "Editorial UI, cinematic motion, and performance-guarded WebGL, held to one consistent system." },
+  { role: "Delivery & Reporting", body: "One accountable contact, and outcomes reported in business terms — rankings, citations, CWV, conversions." },
+];
+
+// Real content roadmap (drawn from our 30-topic plan). Shown as "publishing soon",
+// never as fabricated published posts.
+export const insights = [
+  { title: "What Is Answer Engine Optimization (AEO)?", cat: "AI Search", kind: "Guide" },
+  { title: "GEO vs SEO: Ranking in ChatGPT, Gemini & Perplexity", cat: "AI Search", kind: "Guide" },
+  { title: "How to Get Your Brand Cited by ChatGPT", cat: "AI Search", kind: "Playbook" },
+  { title: "Why Your Organic Traffic Is Dropping (AI Overviews, Explained)", cat: "AI Search", kind: "Analysis" },
+  { title: "Does WebGL Hurt SEO? Building Fast, Crawlable 3D", cat: "Immersive", kind: "Guide" },
+  { title: "When an Immersive Website Is Worth It (and When It Isn't)", cat: "Immersive", kind: "Analysis" },
+  { title: "Core Web Vitals in 2026: What Actually Moves Rankings", cat: "Performance", kind: "Guide" },
+  { title: "Migrating From WordPress to Next.js: Is It Worth It?", cat: "Engineering", kind: "Analysis" },
+  { title: "SEO vs AEO vs GEO: Where to Put Your 2026 Budget", cat: "AI Search", kind: "Playbook" },
+  { title: "How to Audit Your Site's AI-Search Readiness", cat: "AI Search", kind: "Checklist" },
+];
+
+export const careerRoles = [
+  { role: "Next.js / React Engineers", body: "Senior front-end and full-stack engineers comfortable with App Router, RSC, and performance budgets." },
+  { role: "WebGL / Creative Developers", body: "React Three Fiber and GLSL specialists who care about 60fps as much as the visual." },
+  { role: "Motion & UI Designers", body: "Editorial, systems-minded designers who can hold a premium bar across pages." },
+  { role: "AI-Search Strategists", body: "SEO/AEO/GEO practitioners who lead with evidence, not adjectives." },
 ];

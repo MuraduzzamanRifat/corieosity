@@ -335,6 +335,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cta-band h2 { max-width: 18ch; margin: 0 auto 0.4em; }
 .cta-band p { color: var(--mut); max-width: 50ch; margin: 0 auto 2em; }
 
+/* blog / insights rows */
+.insight-row { display: grid; grid-template-columns: 150px 1fr auto; gap: 24px; align-items: center; padding: 26px 0; border-top: 1px solid var(--line); transition: padding-left 0.3s var(--ease), border-color 0.3s; }
+.insight-row:hover { padding-left: 10px; border-color: var(--line-strong); }
+.insight-meta { display: flex; flex-direction: column; gap: 6px; }
+.insight-title { font-weight: 500; }
+.insight-soon { white-space: nowrap; color: var(--mut-2); }
+@media (max-width: 720px) { .insight-row { grid-template-columns: 1fr; gap: 8px; } .insight-soon { justify-self: start; } }
+
 /* footer */
 .footer { border-top: 1px solid var(--line); padding: 60px 0 40px; margin-top: 30px; position: relative; z-index: 1; background: rgba(6, 10, 9, 0.6); }
 .foot { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
