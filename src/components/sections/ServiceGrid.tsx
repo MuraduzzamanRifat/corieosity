@@ -13,12 +13,7 @@ export default function ServiceGrid({
         const Icon = serviceIcons[s.slug];
         return (
           <Reveal key={s.slug} delay={i * 60}>
-            <article
-              className="card svc"
-              style={{ height: "100%" }}
-              data-cursor="hover"
-              id={s.slug}
-            >
+            <article className="card svc" data-cursor="hover" id={s.slug}>
               <div className="ico-badge">{Icon ? <Icon /> : null}</div>
               <span className="tag">{s.tag}</span>
               <h3>{s.title}</h3>

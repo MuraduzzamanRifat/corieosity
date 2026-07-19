@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export default function Preloader() {
   const root = useRef<HTMLDivElement>(null);
@@ -14,9 +15,7 @@ export default function Preloader() {
       setHidden(true);
       return;
     }
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduced = prefersReducedMotion();
     const counter = { v: 0 };
     const tl = gsap.timeline({
       onComplete: () => {

@@ -5,6 +5,7 @@ import SceneTint from "@/components/three/SceneTint";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ProcessList from "@/components/sections/ProcessList";
 import CtaBand from "@/components/sections/CtaBand";
+import InfoCard from "@/components/sections/InfoCard";
 import { values } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -65,13 +66,7 @@ export default function AboutPage() {
       </section>
 
       {/* VALUES */}
-      <section
-        className="band"
-        style={{
-          background:
-            "linear-gradient(180deg,transparent,rgba(63,185,143,.03),transparent)",
-        }}
-      >
+      <section className="band band-wash-teal">
         <div className="wrap">
           <SectionHeading
             eyebrow="The owl, made literal"
@@ -84,12 +79,7 @@ export default function AboutPage() {
           <div className="grid grid-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 60}>
-                <div className="card" style={{ height: "100%" }}>
-                  <h3 className="h3" style={{ marginBottom: "0.4em" }}>
-                    {v.title}
-                  </h3>
-                  <p className="muted small">{v.body}</p>
-                </div>
+                <InfoCard title={v.title} body={v.body} small />
               </Reveal>
             ))}
           </div>

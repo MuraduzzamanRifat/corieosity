@@ -76,15 +76,7 @@ export default function ContactForm() {
         </p>
       )}
 
-      <div
-        style={{
-          marginTop: 18,
-          display: "flex",
-          gap: 14,
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="btn-row" style={{ marginTop: 18, alignItems: "center" }}>
         <button className="btn btn-primary" type="submit" disabled={status === "sending"}>
           {status === "sending" ? "Sending…" : "Get my Answer Readiness score"}{" "}
           <span className="arw">↗</span>

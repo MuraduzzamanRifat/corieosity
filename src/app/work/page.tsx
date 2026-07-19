@@ -38,7 +38,7 @@ export default function WorkPage() {
           <div className="grid grid-3">
             {proofBuilds.map((p, i) => (
               <Reveal key={p.slug} delay={i * 70}>
-                <article className="card work-card" data-cursor="hover" style={{ height: "100%" }}>
+                <article className="card work-card" data-cursor="hover">
                   <div
                     className="swatch"
                     style={{

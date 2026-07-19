@@ -6,6 +6,7 @@ import SectionHeading from "@/components/sections/SectionHeading";
 import AnswerSystem from "@/components/sections/AnswerSystem";
 import Commitments from "@/components/sections/Commitments";
 import CtaBand from "@/components/sections/CtaBand";
+import InfoCard from "@/components/sections/InfoCard";
 
 const chapters = [
   {
@@ -85,13 +86,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <section
-        className="band"
-        style={{
-          background:
-            "linear-gradient(180deg,transparent,rgba(255,203,61,.03),transparent)",
-        }}
-      >
+      <section className="band band-wash-gold">
         <div className="wrap">
           <SectionHeading
             eyebrow="The strategy in three layers"
@@ -114,13 +109,7 @@ export default function CaseStudiesPage() {
           <div className="grid grid-3">
             {measures.map(([t, b], i) => (
               <Reveal key={t} delay={i * 60}>
-                <div className="card" style={{ height: "100%" }}>
-                  <span className="tag">Layer</span>
-                  <h3 className="h3" style={{ margin: "0.3em 0" }}>
-                    {t}
-                  </h3>
-                  <p className="muted small">{b}</p>
-                </div>
+                <InfoCard tag="Layer" title={t} body={b} small />
               </Reveal>
             ))}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 // SSR renders children visible (crawler-safe); JS enhances with a scroll-in reveal.
 export default function Reveal({
@@ -20,7 +21,7 @@ export default function Reveal({
     setMounted(true);
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (prefersReducedMotion()) {
       setShown(true);
       return;
     }

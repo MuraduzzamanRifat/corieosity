@@ -39,13 +39,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section
-        className="band"
-        style={{
-          background:
-            "linear-gradient(180deg,transparent,rgba(63,185,143,.03),transparent)",
-        }}
-      >
+      <section className="band band-wash-teal">
         <div className="wrap">
           <SectionHeading
             eyebrow="The method behind all of it"

@@ -77,14 +77,7 @@ export default function Home() {
       </section>
 
       {/* ANSWER READINESS SYSTEM */}
-      <section
-        className="band"
-        id="system"
-        style={{
-          background:
-            "linear-gradient(180deg,transparent,rgba(63,185,143,.03),transparent)",
-        }}
-      >
+      <section className="band band-wash-teal" id="system">
         <div className="wrap">
           <SectionHeading
             eyebrow="The Answer Readiness System"
@@ -149,14 +142,7 @@ export default function Home() {
       </section>
 
       {/* PROCESS */}
-      <section
-        className="band"
-        id="process"
-        style={{
-          background:
-            "linear-gradient(180deg,transparent,rgba(255,203,61,.03),transparent)",
-        }}
-      >
+      <section className="band band-wash-gold" id="process">
         <div className="wrap">
           <SectionHeading
             eyebrow="Process"

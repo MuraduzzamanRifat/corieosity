@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export default function Magnetic({
   children,
@@ -10,11 +11,15 @@ export default function Magnetic({
   strength?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const reduced = useRef(false);
+
+  useEffect(() => {
+    reduced.current = prefersReducedMotion();
+  }, []);
 
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el || reduced.current) return;
     const r = el.getBoundingClientRect();
     const x = e.clientX - (r.left + r.width / 2);
     const y = e.clientY - (r.top + r.height / 2);

@@ -34,7 +34,6 @@ export const stats = [
   { value: "100%", label: "server-rendered content, so AI crawlers can actually read you." },
 ];
 
-export const builtOn = ["Next.js 16", "React 19", "Three.js", "TypeScript"];
 export const optimizedFor = ["ChatGPT", "Gemini", "Perplexity", "Google AI Overviews"];
 
 export type Service = {

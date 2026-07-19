@@ -2,6 +2,7 @@
 
 import { ReactLenis } from "lenis/react";
 import { useEffect, useState } from "react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export default function SmoothScroll({
   children,
@@ -11,7 +12,7 @@ export default function SmoothScroll({
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setReduced(prefersReducedMotion());
   }, []);
 
   if (reduced) return <>{children}</>;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/layout/PageHero";
+import ProseSections from "@/components/sections/ProseSections";
 import SceneTint from "@/components/three/SceneTint";
 import { site } from "@/content/site";
 
@@ -50,18 +51,7 @@ export default function TermsPage() {
         content is ours, and any actual work we do together is governed by a
         separate signed agreement.
       </PageHero>
-      <section className="band">
-        <div className="wrap stack" style={{ gap: 34, maxWidth: "78ch" }}>
-          {sections.map((s) => (
-            <div key={s.h}>
-              <h2 className="h3" style={{ marginBottom: "0.4em" }}>
-                {s.h}
-              </h2>
-              <p className="muted">{s.p}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ProseSections sections={sections} />
     </>
   );
 }

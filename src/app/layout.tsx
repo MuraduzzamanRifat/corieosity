@@ -3,8 +3,6 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
 import SmoothScroll from "@/components/providers/SmoothScroll";
-import SceneMount from "@/components/three/SceneMount";
-import ScrollBridge from "@/components/three/ScrollBridge";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Cursor from "@/components/ui/Cursor";
@@ -82,11 +80,9 @@ export default function RootLayout({
           Skip to content
         </a>
         <div className="scene-backdrop" aria-hidden />
-        <SceneMount />
         <div className="overlay-grain" aria-hidden />
         <Cursor />
         <Preloader />
-        <ScrollBridge />
         <SmoothScroll>
           <Nav />
           <main id="main" className="page">

@@ -25,14 +25,7 @@ export default function CtaBand({
           {title}
         </h2>
         {children && <p>{children}</p>}
-        <div
-          style={{
-            display: "flex",
-            gap: "14px",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="btn-row center">
           <Magnetic>
             <Link href={primaryHref} className="btn btn-primary">
               {primaryLabel} <span className="arw">↗</span>
