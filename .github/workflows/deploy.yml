@@ -27,11 +27,14 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./out/
-          # The FTP login lands in the account's HOME dir, not the web root, so we
-          # target public_html/ explicitly. If this account is instead chrooted to
-          # public_html already, change this back to "./". (Diagnosed 2026-07-21:
-          # with "./" the uploads never reached the live web root.)
-          server-dir: public_html/
+          # DIAGNOSED 2026-07-21: the FTP account in FTP_USERNAME is rooted in a
+          # directory that is NOT the site's web root (public_html) and can't reach
+          # it — uploads report success but never appear on corieosity.com. Both
+          # "./" and "public_html/" were tested; neither reached the web root.
+          # FIX (needs cPanel): recreate the FTP account with Directory = public_html
+          # (then "./" below is correct), OR put the MAIN cPanel account's FTP creds
+          # in FTP_USERNAME/FTP_PASSWORD and set server-dir to "public_html/".
+          server-dir: ./
           log-level: verbose
           # Never touch SSL validation files or the one-off perms script.
           exclude: |
