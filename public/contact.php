@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // ── CONFIG ──────────────────────────────────────────────
-$to = 'hello@corieosity.com';   // <-- change to your real inbox
+$to = 'hello@corieosity.com';   // <-- change to your real inbox (keep in sync with site.email in src/content/site.ts)
 $aios_webhook_url = '';          // optional: your AIOS /api/leads URL
 $aios_secret = '';               // optional: matches AIOS_WEBHOOK_SECRET
 // ────────────────────────────────────────────────────────
@@ -11,17 +11,17 @@ $raw  = file_get_contents('php://input');
 $data = json_decode($raw, true);
 if (!$data) { $data = $_POST; }
 
-$email = isset($data['email']) ? trim($data['email']) : '';
+$email = trim($data['email'] ?? '');
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   http_response_code(400);
   echo json_encode(['ok' => false, 'error' => 'invalid email']);
   exit;
 }
 
-$name    = isset($data['name']) ? $data['name'] : '';
-$company = isset($data['company']) ? $data['company'] : '';
-$website = isset($data['website']) ? $data['website'] : '';
-$message = isset($data['message']) ? $data['message'] : '';
+$name    = $data['name'] ?? '';
+$company = $data['company'] ?? '';
+$website = $data['website'] ?? '';
+$message = $data['message'] ?? '';
 
 $subject = 'New lead: ' . ($name ?: $email);
 $body    = "Name: $name\nEmail: $email\nCompany: $company\nWebsite: $website\n\nMessage:\n$message\n";

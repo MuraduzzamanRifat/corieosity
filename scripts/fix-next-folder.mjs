@@ -1,14 +1,15 @@
-// Post-build fix for shared hosting (HostGator) that 403-blocks underscore dirs.
-// Renames out/_next -> out/next and rewrites every "/_next/" reference to "/next/".
+// Post-build step for HostGator shared hosting: renames out/_next -> out/next and
+// rewrites every "/_next/" reference to "/next/". (The live asset 403s turned out to
+// be a directory-permission issue, not underscore paths; this rename is kept as a
+// harmless precaution against Apache configs that do deny underscore dirs.)
 import {
   readdirSync,
-  statSync,
   renameSync,
   readFileSync,
   writeFileSync,
   existsSync,
 } from "node:fs";
-import { join } from "node:path";
+import { join, extname } from "node:path";
 
 const out = join(process.cwd(), "out");
 const src = join(out, "_next");
@@ -24,19 +25,15 @@ const exts = new Set([".html", ".js", ".css", ".txt", ".xml", ".json"]);
 let changed = 0;
 
 function walk(dir) {
-  for (const name of readdirSync(dir)) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name);
+    if (entry.isDirectory()) {
       walk(p);
-    } else {
-      const dot = name.lastIndexOf(".");
-      const ext = dot >= 0 ? name.slice(dot) : "";
-      if (exts.has(ext)) {
-        const c = readFileSync(p, "utf8");
-        if (c.includes("/_next/")) {
-          writeFileSync(p, c.replaceAll("/_next/", "/next/"));
-          changed++;
-        }
+    } else if (exts.has(extname(entry.name))) {
+      const c = readFileSync(p, "utf8");
+      if (c.includes("/_next/")) {
+        writeFileSync(p, c.replaceAll("/_next/", "/next/"));
+        changed++;
       }
     }
   }

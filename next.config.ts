@@ -7,7 +7,9 @@ import path from "node:path";
 const nextConfig: NextConfig = {
   turbopack: { root: path.resolve() },
   // Static export for HostGator shared hosting. A post-build step renames the
-  // `_next` asset folder to `next` (Apache blocks underscore dirs with 403).
+  // `_next` asset folder to `next`. (The live asset 403s turned out to be a
+  // directory-permission issue, not the underscore dir; the rename is kept as a
+  // harmless precaution since some Apache setups do deny underscore paths.)
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
