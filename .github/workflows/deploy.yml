@@ -22,7 +22,7 @@ jobs:
       - name: Deploy out/ to HostGator via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: corieosity.com
+          server: gator4163.hostgator.com
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
