@@ -6,6 +6,11 @@ import path from "node:path";
 // root to this project so a sibling lockfile can't be inferred as the root.
 const nextConfig: NextConfig = {
   turbopack: { root: path.resolve() },
+  // Static export for HostGator shared hosting. A post-build step renames the
+  // `_next` asset folder to `next` (Apache blocks underscore dirs with 403).
+  output: "export",
+  trailingSlash: true,
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
