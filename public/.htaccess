@@ -1,0 +1,20 @@
+# Ensure static assets (Next.js /next/ chunks) are served on shared hosting.
+Options -Indexes
+
+# Explicitly grant access (overrides an inherited "deny/Require" rule that
+# returns a bare 403 "client denied by server configuration").
+<IfModule mod_authz_core.c>
+  Require all granted
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Allow from all
+</IfModule>
+
+# Correct content types.
+<IfModule mod_mime.c>
+  AddType text/css .css
+  AddType application/javascript .js
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+</IfModule>
