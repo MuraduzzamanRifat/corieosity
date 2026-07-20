@@ -27,10 +27,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./out/
-          # server-dir is "./" when the FTP account is scoped to the corieosity.com
-          # folder. If you use the main cPanel FTP account instead, change this to
-          # "./corieosity.com/".
-          server-dir: ./
+          # The FTP login lands in the account's HOME dir, not the web root, so we
+          # target public_html/ explicitly. If this account is instead chrooted to
+          # public_html already, change this back to "./". (Diagnosed 2026-07-21:
+          # with "./" the uploads never reached the live web root.)
+          server-dir: public_html/
+          log-level: verbose
           # Never touch SSL validation files or the one-off perms script.
           exclude: |
             **/.well-known/**
