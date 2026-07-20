@@ -49,7 +49,7 @@ export default function Nav() {
 
         <div className="nav-right">
           <Magnetic>
-            <Link href="/contact" className="btn btn-primary nav-cta-desktop">
+            <Link href="/start" className="btn btn-primary nav-cta-desktop">
               Answer Readiness Score <span className="arw">↗</span>
             </Link>
           </Magnetic>
@@ -77,7 +77,7 @@ export default function Nav() {
               {n.label}
             </Link>
           ))}
-          <Link href="/contact" className="btn btn-primary">
+          <Link href="/start" className="btn btn-primary">
             Answer Readiness Score
           </Link>
         </div>

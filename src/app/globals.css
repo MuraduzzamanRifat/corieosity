@@ -369,6 +369,51 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .form-note { font-size: 0.8rem; color: var(--mut-2); margin-top: 14px; }
 .form-success { padding: 20px; border-radius: var(--radius-sm); background: rgba(63, 185, 143, 0.1); border: 1px solid var(--teal-deep); color: var(--teal-bright); }
 
+/* ---------- pricing calculator ---------- */
+.calc { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 34px; align-items: start; }
+@media (max-width: 900px) { .calc { grid-template-columns: 1fr; } }
+.calc-controls { display: flex; flex-direction: column; gap: 30px; }
+.calc-group { border: 0; padding: 0; margin: 0; min-width: 0; }
+.calc-group legend { padding: 0; margin-bottom: 14px; }
+.calc-options { display: grid; gap: 12px; }
+.calc-options-2 { grid-template-columns: 1fr 1fr; }
+.calc-options-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 620px) { .calc-options-2, .calc-options-3 { grid-template-columns: 1fr; } }
+.calc-opt { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: pointer; transition: border-color 0.25s, background 0.25s, transform 0.25s; }
+.calc-opt:hover { border-color: var(--line-strong); background: rgba(63, 185, 143, 0.04); }
+.calc-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.calc-opt.sel { border-color: var(--teal); background: rgba(63, 185, 143, 0.08); }
+.calc-opt-title { font-weight: 600; color: var(--ink); font-size: 0.98rem; }
+.calc-opt-desc { font-size: 0.84rem; color: var(--mut); }
+.calc-opt:has(input:focus-visible), .check-pill:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
+.calc-result { padding: clamp(24px, 3vw, 32px); position: sticky; top: 96px; }
+@media (max-width: 900px) { .calc-result { position: static; } }
+.calc-figure { font-family: var(--font-space); font-weight: 700; font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--ink); margin: 10px 0 14px; letter-spacing: -0.02em; line-height: 1.05; }
+.calc-dash { color: var(--mut-2); margin: 0 0.2em; }
+
+/* ---------- multi-step wizard ---------- */
+.wizard-steps { display: flex; gap: 10px; margin-bottom: 26px; }
+.wizard-pip { flex: 1; display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--mut-2); padding-bottom: 12px; border-bottom: 2px solid var(--line); transition: color 0.3s, border-color 0.3s; }
+.wizard-pip.on { color: var(--ink); border-color: var(--teal); }
+.wizard-pip-n { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; background: var(--surface); border: 1px solid var(--line); flex: none; }
+.wizard-pip.on .wizard-pip-n { background: var(--teal); color: #04110c; border-color: var(--teal); }
+.wizard-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; }
+
+/* ---------- checkbox pills ---------- */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+@media (max-width: 560px) { .check-grid { grid-template-columns: 1fr; } }
+.check-pill { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 0.9rem; color: var(--mut); cursor: pointer; transition: 0.25s; }
+.check-pill:hover { border-color: var(--line-strong); color: var(--ink); }
+.check-pill.sel { border-color: var(--teal); background: rgba(63, 185, 143, 0.08); color: var(--ink); }
+.check-pill input { accent-color: var(--teal); width: 16px; height: 16px; flex: none; }
+
+/* ---------- start / book two-column ---------- */
+.start-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 50px; align-items: start; }
+@media (max-width: 900px) { .start-grid { grid-template-columns: 1fr; gap: 34px; } }
+.start-aside { position: sticky; top: 96px; }
+@media (max-width: 900px) { .start-aside { position: static; } }
+.chip.avail { color: var(--teal-bright); border-color: var(--teal-deep); }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .marquee-track, .scroll-hint .dot, .orbit { animation: none !important; }

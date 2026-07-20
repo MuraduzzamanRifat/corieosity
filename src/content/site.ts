@@ -20,11 +20,11 @@ export const site = {
 export type NavItem = { label: string; href: string };
 
 export const nav: NavItem[] = [
-  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Industries", href: "/industries" },
   { label: "Work", href: "/work" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Blog", href: "/blog" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -249,4 +249,140 @@ export const careerRoles = [
   { role: "WebGL / Creative Developers", body: "React Three Fiber and GLSL specialists who care about 60fps as much as the visual." },
   { role: "Motion & UI Designers", body: "Editorial, systems-minded designers who can hold a premium bar across pages." },
   { role: "AI-Search Strategists", body: "SEO/AEO/GEO practitioners who lead with evidence, not adjectives." },
+];
+
+// ---------- Industries (US ICP — honest verticals, no fabricated clients) ----------
+export type Industry = {
+  slug: string;
+  name: string;
+  who: string;
+  challenge: string;
+  approach: string;
+  service: string;
+};
+
+export const industries: Industry[] = [
+  {
+    slug: "startups",
+    name: "Funded Startups",
+    who: "Seed to Series B",
+    challenge:
+      "You have to be found before the category leader locks in the narrative — and AI engines are already deciding who to name.",
+    approach:
+      "We make you the answer to the questions your market is asking AI, and ship a site fast enough to keep up with your roadmap.",
+    service: "AI-Search Optimization",
+  },
+  {
+    slug: "saas",
+    name: "SaaS Companies",
+    who: "Product-led & sales-led",
+    challenge:
+      "Buyers ask ChatGPT and Perplexity for feature, comparison, and integration answers — and your competitors are getting cited, not you.",
+    approach:
+      "Entity and schema architecture plus citation-ready content that puts your product inside those AI answers, tracked by referral.",
+    service: "AI-Powered Websites",
+  },
+  {
+    slug: "design-brands",
+    name: "Design-Conscious Brands",
+    who: "DTC, studios & premium services",
+    challenge:
+      "You need a site as considered as the product — without shipping JavaScript that crawlers and AI bots can't read.",
+    approach:
+      "Immersive, performance-guarded WebGL that stays server-rendered and machine-readable, with Core Web Vitals in the green.",
+    service: "Immersive Web Experiences",
+  },
+  {
+    slug: "enterprise",
+    name: "Enterprise Teams",
+    who: "Marketing & digital leaders",
+    challenge:
+      "AI-search visibility matters, but so do accessibility, security review, and procurement — most boutique shops can't meet that bar.",
+    approach:
+      "The Answer Readiness System delivered with an enterprise track: WCAG 2.2 AA, security documentation, and a single accountable contact.",
+    service: "Next.js Development",
+  },
+];
+
+// ---------- Pricing (indicative USD ranges — explicitly NOT a quote) ----------
+export const pricing = {
+  note:
+    "Indicative USD ranges to help you plan — not a quote. Every engagement is scoped to your goals and reported against business outcomes. Book a call for an exact figure.",
+  projectTypes: [
+    { id: "sprint", label: "Answer Readiness Sprint", desc: "Audit, score, and a prioritized roadmap.", low: 3000, high: 6000 },
+    { id: "aeo", label: "AI-Search Optimization", desc: "SEO + AEO + GEO over a focused 3-month engagement.", low: 9000, high: 24000 },
+    { id: "immersive", label: "Immersive Website Build", desc: "Next.js with performance-guarded WebGL.", low: 15000, high: 45000 },
+    { id: "ai-site", label: "AI-Powered Website", desc: "Next.js build with a RAG assistant and smart search.", low: 18000, high: 60000 },
+  ],
+  scope: [
+    { id: "s", label: "Focused", hint: "Landing or a few key pages", mult: 1 },
+    { id: "m", label: "Standard", hint: "Full marketing site", mult: 1.6 },
+    { id: "l", label: "Ambitious", hint: "Large site or web platform", mult: 2.4 },
+  ],
+  addons: [
+    { id: "webgl", label: "Signature WebGL moment", low: 4000, high: 10000 },
+    { id: "assistant", label: "RAG site assistant", low: 6000, high: 15000 },
+    { id: "cms", label: "Client-managed CMS", low: 3000, high: 8000 },
+    { id: "content", label: "Citation-ready content system", low: 3000, high: 9000 },
+  ],
+} as const;
+
+// ---------- Meeting types (booking) ----------
+export const meetingTypes = [
+  {
+    id: "intro",
+    name: "Intro Call",
+    length: "20 min",
+    who: "First conversation",
+    desc: "A quick, no-pressure fit check. Tell us your goal; we'll tell you honestly whether we're the right team and what a first step looks like.",
+  },
+  {
+    id: "review",
+    name: "Answer Readiness Review",
+    length: "45 min",
+    who: "You have your score",
+    desc: "We walk through your three-layer Answer Readiness breakdown together — where AI can and can't see you, and the highest-leverage fixes.",
+  },
+  {
+    id: "scoping",
+    name: "Project Scoping",
+    length: "60 min",
+    who: "Active opportunity",
+    desc: "We define scope, timeline, and success metrics so your proposal reflects the real work — not a templated guess.",
+  },
+] as const;
+
+// ---------- Resource Library (honest availability — no fake downloads) ----------
+export type Resource = {
+  title: string;
+  kind: string;
+  desc: string;
+  available: boolean;
+};
+
+export const resources: Resource[] = [
+  {
+    title: "Answer Readiness Score",
+    kind: "Free assessment",
+    desc: "A three-layer read on how findable, extractable, and citable your site is to AI engines — with the highest-leverage fixes.",
+    available: true,
+  },
+  {
+    title: "The AEO / GEO Checklist",
+    kind: "Checklist",
+    desc: "The concrete steps that make your content the answer engines lift and cite — from schema to answer blocks to entity signals.",
+    available: false,
+  },
+  {
+    title: "Core Web Vitals for WebGL Sites",
+    kind: "Technical guide",
+    desc: "How to ship immersive 3D that still keeps LCP, INP, and CLS in the green — the exact budget we build to.",
+    available: false,
+  },
+  {
+    title: "WordPress → Next.js Migration Guide",
+    kind: "Playbook",
+    desc: "When a migration is worth it, what it costs, and how to move without losing rankings or content history.",
+    available: false,
+  },
 ];

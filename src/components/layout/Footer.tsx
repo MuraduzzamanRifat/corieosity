@@ -17,6 +17,13 @@ export default function Footer() {
               The agency that makes brands the answer — seen by machines, chosen
               by humans. {site.serving}
             </p>
+            <p style={{ marginTop: 14 }}>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+              <br />
+              <a href={site.phoneHref}>{site.phone}</a>
+              <br />
+              <span className="muted small">{site.hours}</span>
+            </p>
           </div>
 
           <div className="foot-cols">
@@ -28,20 +35,27 @@ export default function Footer() {
               <Link href="/services">Next.js Development</Link>
             </div>
             <div className="foot-col">
-              <h4>Agency</h4>
-              <Link href="/about">About</Link>
-              <Link href="/team">Studio</Link>
+              <h4>Explore</h4>
+              <Link href="/industries">Industries</Link>
               <Link href="/work">Work</Link>
               <Link href="/case-studies">Case Studies</Link>
               <Link href="/blog">Blog</Link>
-              <Link href="/faq">FAQ</Link>
-              <Link href="/careers">Careers</Link>
+              <Link href="/knowledge">Knowledge Center</Link>
+              <Link href="/resources">Resources</Link>
             </div>
             <div className="foot-col">
-              <h4>Contact</h4>
-              <a href={`mailto:${site.email}`}>{site.email}</a>
-              <a href={site.phoneHref}>{site.phone}</a>
-              <span>{site.hours}</span>
+              <h4>Agency</h4>
+              <Link href="/about">About</Link>
+              <Link href="/team">Studio</Link>
+              <Link href="/careers">Careers</Link>
+              <Link href="/faq">FAQ</Link>
+            </div>
+            <div className="foot-col">
+              <h4>Get started</h4>
+              <Link href="/start">Start a project</Link>
+              <Link href="/book">Book a meeting</Link>
+              <Link href="/pricing">Pricing</Link>
+              <Link href="/contact">Contact</Link>
             </div>
           </div>
         </div>
@@ -50,7 +64,8 @@ export default function Footer() {
           <span>© 2026 Corieosity. Be the answer.</span>
           <span>
             <Link href="/privacy">Privacy (CCPA)</Link> ·{" "}
-            <Link href="/terms">Terms</Link> · {site.billing}
+            <Link href="/terms">Terms</Link> ·{" "}
+            <Link href="/cookies">Cookies</Link> · {site.billing}
           </span>
           <span className="ask">
             Don&apos;t take our word for it — ask ChatGPT about AEO agencies.
